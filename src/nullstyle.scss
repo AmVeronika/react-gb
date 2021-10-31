@@ -1,0 +1,123 @@
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+a:focus,
+a:active {
+  outline: none;
+}
+html,
+body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+main {
+  flex-grow: 1;
+}
+input,
+button,
+textarea,
+pre {
+  font-family: inherit;
+}
+input::-ms-clear {
+  display: none;
+}
+// Для iphone
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+// Конец
+// Убрать/невидимка стрелочку у input
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+// Конец
+
+button {
+  cursor: pointer;
+}
+button {
+  background: none;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+// Скрываем стрелки в input[type="number"]
+/* Это для браузера Chrome: */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Это для браузера Firefox: */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+//input[type="number"]:hover,
+//input[type="number"]:focus {
+//  -moz-appearance: number-input;
+//}
+/* Для других */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* END*/
+// Обводка у обязательных (required) полей ввода
+input,
+textarea {
+  outline: none;
+  &:focus:required:invalid {
+    border-color: #fc4747;
+  }
+  &:required:valid {
+    border-color: #000;
+  }
+}
+/*--------------------*/
