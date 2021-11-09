@@ -9,7 +9,8 @@
   justify-content: space-between;
   padding: 20px;
   background: #000000;
-  border-radius: 14px;
+  border-bottom-right-radius: 14px;
+  border-top-right-radius: 14px;
   margin: 0 auto;
 
   &__text {
@@ -28,6 +29,7 @@
     gap: 10px;
     overflow-y: scroll;
     padding: 10px;
+
     &-text {
       font-size: 20px;
       color: #f10826;
@@ -55,6 +57,7 @@
       background: #2e2323;
       border-radius: 29.9386px 0px 29.9386px 29.9386px;
       filter: drop-shadow(2px 5px 10px #2e2323);
+
       span {
         right: 0;
       }
