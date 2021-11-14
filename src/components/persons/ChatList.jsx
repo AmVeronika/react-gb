@@ -1,8 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {useStyles} from "../styles/styles";
+import {Link} from "react-router-dom";
 
-const ChatList = () => {
+export const ChatList = () => {
     const styles = useStyles();
     const [chatList, setChatList] = useState([])
 
@@ -10,10 +11,10 @@ const ChatList = () => {
         let isMounted = true;
         const fetchChatList = async () => {
             try {
-                const response = await fetch("https://rickandmortyapi.com/api/character/?page=17");
+                const response = await fetch("https://rickandmortyapi.com/api/character/?page=1");
                 const data = await response.json();
                 if (isMounted)
-                setChatList(data.results)
+                    setChatList(data.results)
             } catch (e) {
                 console.error(e.message)
             }
@@ -24,25 +25,24 @@ const ChatList = () => {
         }
     }, [])
 
-    const chats = chatList.map(chat => {
+    const chats = chatList.slice(0, 5).map((chat, ind) => {
         return (
-            <ListItem disablePadding key={chat.id}>
-                <img className="list-avatar" src={chat.image} alt="фото пользователя"/>
-                <ListItemButton>
-                    <ListItemText primary={chat.name}/>
-                </ListItemButton>
-            </ListItem>
+            <li key={chat.id} className="chat-list">
+                <Link to={`/chats/dialogs/${ind}`} className="chat-link">
+                    <img className="list-avatar" src={chat.image} alt="фото пользователя"/>
+                    {chat.name}
+                </Link>
+
+            </li>
         )
     });
 
     return (
         <div className="castom__scroll list-wrap">
-            <List className={styles.list}>
+            <ul className={styles.list}>
                 {chats}
-            </List>
+            </ul>
         </div>
 
-)
+    )
 };
-
-export default ChatList;

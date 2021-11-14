@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import './formForMessage.scss'
 import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
-
+import {v4 as uuidv4} from "uuid";
 export const FormForMessage = ({updateMessageList}) => {
     const styles = useStyles();
     const [msgValue, setMsgValue] = useState('')
@@ -12,7 +12,7 @@ export const FormForMessage = ({updateMessageList}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (msgValue !== '') {
-            updateMessageList({text:msgValue, author: 'Я'})
+            updateMessageList({text:msgValue, author: 'Я', id:uuidv4()})
             setMsgValue("")
         }
         inputRef.current?.focus();
