@@ -1,0 +1,122 @@
+
+.castom__scroll {
+  overflow: auto;
+  scrollbar-color: #210606;
+  scrollbar-width: thin;
+  max-height: 646px
+}
+
+.castom__scroll::-webkit-scrollbar {
+  /* 1 - скроллбар */
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: #000000;
+  width: 10px;
+}
+
+.castom__scroll::-webkit-scrollbar-button {
+  /* 2 - кнопка */
+}
+
+.castom__scroll::-webkit-scrollbar-track {
+  /* 3 - трек */
+  border-radius: 10px;
+  border: 0.6px solid #140404;
+}
+
+.castom__scroll::-webkit-scrollbar-track-piece {
+  /* 4 - видимая часть трека */
+}
+
+.castom__scroll::-webkit-scrollbar-thumb {
+  /* 5 - ползунок */
+  background: #261010;
+  border-radius: 10px;
+  height: 20px;
+  width: 10px;
+  //-moz-border-radius-topleft: 14px;
+}
+
+.app {
+  background-color: #121212;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.app-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.list-wrap {
+  width: 500px;
+  padding: 20px;
+  background: #000000;
+  border-radius: 14px;
+  color: rgba(250, 235, 215, 0.66);
+  margin: 65px;
+}
+
+.chat-list {
+  margin: 15px 0;
+}
+
+.chat-link {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  color: #f10826;
+  transition: 0.2s ease-in;
+
+  &:hover {
+    filter: drop-shadow(0 0 4px rgba(red, 0.7))
+  }
+}
+
+.list-avatar {
+  object-fit: cover;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.navigation {
+  display: flex;
+  gap: 35px;
+
+  &__link {
+    font-size: 60px;
+    font-weight: 900;
+    color: #f10826;
+    transition: 0.2s ease-in;
+
+    &:hover {
+      filter: drop-shadow(0 0 4px rgba(red, 0.7))
+    }
+  }
+
+  .active {
+    color: #8e1928;
+  }
+}
+
+.profile-check {
+  color: white;
+  font-size: 30px;
+}
