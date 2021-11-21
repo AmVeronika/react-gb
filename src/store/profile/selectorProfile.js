@@ -1,0 +1,1 @@
+export const getProfiles = (state) => state.profile.profilesList

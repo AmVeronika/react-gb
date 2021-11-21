@@ -1,46 +1,34 @@
-import React, {useEffect, useRef, useState} from "react";
-import './formForMessage.scss'
+import React, {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
-import {v4 as uuidv4} from "uuid";
 import { useDispatch } from "react-redux";
-import { addChatAction } from "../../store/chats/actionChats";
-import { useParams } from "react-router";
-export const FormForMessage = () => {
+import { addProfileAction } from "../../store/profile/actionProfile";
+import { useSelector } from 'react-redux';
+import { getProfiles } from '../../store/profile/selectorProfile'
+import { addNewUserChatAction } from "../../store/chats/actionChats";
+
+export const AddNewUser = () => {
     const styles = useStyles();
-    const [msgValue, setMsgValue] = useState('');
-    const dispatch = useDispatch(); 
-    const { id } = useParams();
+    const [newUser, setNewUser] = useState('');
+    const dispatch = useDispatch();
+    const profiles = useSelector(getProfiles)
     const handleChange = (e) => {
-        setMsgValue(e.target.value)
+      setNewUser(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (msgValue !== '') {
-            dispatch(addChatAction({message: {text:msgValue, author: 'Я', id:uuidv4()}, id: id}))
-            setMsgValue("")
-            const fetchChatList = async () => {
-               try {
-                   const response = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");
-                   const data = await response.json();
-                   dispatch(addChatAction({message: {text:data.joke, author: 'bot', id:uuidv4()}, id: id}))
-                  }   catch (e) {
-                   console.error(e.message)
-               }
-           };
-           fetchChatList()
-        }
-        inputRef.current?.focus();
-
+        let id = profiles.length
+        dispatch(addProfileAction([{
+           id: ++id,
+           name: newUser,
+           image: 'https://vsthemes.org/uploads/posts/2019-03/1195118549.jpg'
+        }]))
+        dispatch(addNewUserChatAction(id))
+        setNewUser('')
     }
-    const inputRef=useRef()
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
-    return (
+      return (
         <form className="message__form" onSubmit={handleSubmit}>
-            <TextField inputRef={inputRef} className={styles.input} label="Введите текст" variant="outlined"  type="text" value={msgValue} onChange={handleChange}  color="error"/>
+            <TextField className={styles.input} label="Добавить пользователя" variant="outlined"  type="text" value={newUser} onChange={handleChange}  color="error"/>
             <Button variant="text" color="error" type="submit">
                 <svg fill="#f10826" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40px" height="40px">
                     <path
