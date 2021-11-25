@@ -2,9 +2,8 @@ import React, {useEffect, useRef, useState} from "react";
 import './formForMessage.scss'
 import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
-import {v4 as uuidv4} from "uuid";
 import { useDispatch } from "react-redux";
-import {addChatAction, addMessageWithThunk} from "../../store/chats/actionChats";
+import {addMessageWithThunk} from "../../store/chats/actionChats";
 import { useParams } from "react-router";
 export const FormForMessage = () => {
     const styles = useStyles();
