@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addProfileAction, deleteProfileAction } from "../../store/profile/actionProfile"
 import { getProfiles } from '../../store/profile/selectorProfile';
+import {deleteChatAction} from "../../store/chats/actionChats";
 
 export const ChatList = () => {
    const styles = useStyles();
@@ -11,7 +12,9 @@ export const ChatList = () => {
    const chatList = useSelector(getProfiles)
    const handleDelete = (id) => {
       dispatch(deleteProfileAction(id))
+      dispatch(deleteChatAction(id))
    }
+
    useEffect(() => {
       let isMounted = true;
       const fetchChatList = async () => {

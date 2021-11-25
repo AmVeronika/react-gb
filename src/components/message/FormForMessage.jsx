@@ -4,34 +4,21 @@ import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
 import {v4 as uuidv4} from "uuid";
 import { useDispatch } from "react-redux";
-import { addChatAction } from "../../store/chats/actionChats";
+import {addChatAction, addMessageWithThunk} from "../../store/chats/actionChats";
 import { useParams } from "react-router";
 export const FormForMessage = () => {
     const styles = useStyles();
     const [msgValue, setMsgValue] = useState('');
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const { id } = useParams();
     const handleChange = (e) => {
         setMsgValue(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (msgValue !== '') {
-            dispatch(addChatAction({message: {text:msgValue, author: 'Я', id:uuidv4()}, id: id}))
-            setMsgValue("")
-            const fetchChatList = async () => {
-               try {
-                   const response = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");
-                   const data = await response.json();
-                   dispatch(addChatAction({message: {text:data.joke, author: 'bot', id:uuidv4()}, id: id}))
-                  }   catch (e) {
-                   console.error(e.message)
-               }
-           };
-           fetchChatList()
-        }
+       dispatch(addMessageWithThunk(msgValue,  id))
+        setMsgValue("")
         inputRef.current?.focus();
-
     }
     const inputRef=useRef()
     useEffect(() => {
