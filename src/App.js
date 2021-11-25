@@ -1,18 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-import {Message} from './components/message/Message'
+import './nullstyle.scss';
+import './App.scss';
+import React from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Home} from "./pages/Home";
+import {Chats} from "./pages/Chats";
+import {Dialogs} from "./pages/Dialogs";
+import {Profiles} from "./pages/Profiles";
+import {Nav} from "./components/nav/Nav";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 function App() {
-    const message = 'World';
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src='https://irl.by/wp-content/uploads/2017/08/52_nc7DbtMU-850x607.jpg' className="App-logo" alt="logo" />
-            <Message text={ message }/>
-      </header>
-    </div>
-  );
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <div className="app">
+                    <Nav/>
+                    <Routes>
+                        <Route path="/" element={<Home/>} />
+                        <Route path="/chats" element={<Chats/>}/>
+                        <Route path="/chats/dialogs/:id" element={<Dialogs/>}/>
+                        <Route path="/profiles" element={<Profiles/>}/>
+                        <Route path="*" element={<Home/>}/>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </Provider>
+
+    );
 }
 
 export default App;
