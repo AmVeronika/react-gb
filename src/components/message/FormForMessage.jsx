@@ -2,31 +2,35 @@ import React, {useEffect, useRef, useState} from "react";
 import './formForMessage.scss'
 import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
-import { useDispatch } from "react-redux";
-import {addMessageWithThunk} from "../../store/chats/actionChats";
-import { useParams } from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
+import {addMessageWithThunk} from "../../store/messages/actionMessages";
+import {getUserName} from "../../store/profile/selectorProfile";
+
 export const FormForMessage = () => {
     const styles = useStyles();
+    const userName = useSelector(getUserName)
     const [msgValue, setMsgValue] = useState('');
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const {id} = useParams();
     const handleChange = (e) => {
         setMsgValue(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-       dispatch(addMessageWithThunk(msgValue,  id))
+        dispatch(addMessageWithThunk(id, {text: msgValue, author: userName, id: id}))
         setMsgValue("")
         inputRef.current?.focus();
     }
-    const inputRef=useRef()
+    const inputRef = useRef()
     useEffect(() => {
         inputRef.current?.focus();
     }, []);
 
     return (
         <form className="message__form" onSubmit={handleSubmit}>
-            <TextField inputRef={inputRef} className={styles.input} label="Введите текст" variant="outlined"  type="text" value={msgValue} onChange={handleChange}  color="error"/>
+            <TextField inputRef={inputRef} className={styles.input} label="Введите текст" variant="outlined" type="text"
+                       value={msgValue} onChange={handleChange} color="error"/>
             <Button variant="text" color="error" type="submit">
                 <svg fill="#f10826" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40px" height="40px">
                     <path

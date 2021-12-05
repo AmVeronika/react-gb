@@ -1,34 +1,30 @@
 import React, {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import {useStyles} from "../styles/styles";
-import { useDispatch } from "react-redux";
-import { addProfileAction } from "../../store/profile/actionProfile";
-import { useSelector } from 'react-redux';
-import { getProfiles } from '../../store/profile/selectorProfile'
-import { addNewUserChatAction } from "../../store/chats/actionChats";
+import {useDispatch} from "react-redux";
+import {useSelector} from 'react-redux';
+import {getProfiles} from '../../store/profile/selectorProfile'
+import {set} from "firebase/database";
+import {v4 as uuidv4} from "uuid";
+import {getChatMsgsRefById, getChatRefById} from "../../firebase";
 
-export const AddNewUser = () => {
+export const AddNewChat = () => {
     const styles = useStyles();
-    const [newUser, setNewUser] = useState('');
-    const dispatch = useDispatch();
-    const profiles = useSelector(getProfiles)
+    const [newChat, setNewChat] = useState('');
     const handleChange = (e) => {
-      setNewUser(e.target.value)
+        setNewChat(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        let id = profiles.length
-        dispatch(addProfileAction([{
-           id: ++id,
-           name: newUser,
-           image: 'https://vsthemes.org/uploads/posts/2019-03/1195118549.jpg'
-        }]))
-        dispatch(addNewUserChatAction(id))
-        setNewUser('')
+        const id = uuidv4()
+        set(getChatRefById(uuidv4()), {name_chat: newChat, id_chat: id});
+        set(getChatMsgsRefById(id), {id_chat: id, messages_list: true});
+        setNewChat('')
     }
-      return (
+    return (
         <form className="message__form" onSubmit={handleSubmit}>
-            <TextField className={styles.input} label="Добавить пользователя" variant="outlined"  type="text" value={newUser} onChange={handleChange}  color="error"/>
+            <TextField className={styles.input} label="Добавить чат" variant="outlined" type="text" value={newChat}
+                       onChange={handleChange} color="error"/>
             <Button variant="text" color="error" type="submit">
                 <svg fill="#f10826" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40px" height="40px">
                     <path

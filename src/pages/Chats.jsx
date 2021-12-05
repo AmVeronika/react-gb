@@ -1,10 +1,10 @@
 import React from 'react';
 import { ChatList } from "../components/persons/ChatList";
-import { AddNewUser } from "../components/addNewUser/AddNewUser"
+import { AddNewChat } from "../components/addNewChat/AddNewChat"
 export const Chats = () => {
    return (
       <>
-         <AddNewUser />
+         <AddNewChat />
          <ChatList />
       </>
    );
